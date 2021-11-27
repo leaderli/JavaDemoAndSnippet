@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: demo
-logging:
-  level:
-    root: debug

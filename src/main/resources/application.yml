@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    url: jdbc:mysql://localhost:3306/li
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  level:
+    root: error
+
+
+lock:
+  use: sqllock
+  fuck:
+    - 1
+    - 2
+

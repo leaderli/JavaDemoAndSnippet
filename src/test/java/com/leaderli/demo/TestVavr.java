@@ -1,5 +1,6 @@
 package com.leaderli.demo;
 
+import io.vavr.Tuple;
 import io.vavr.collection.CharSeq;
 import io.vavr.collection.Seq;
 import io.vavr.control.Validation;
@@ -65,5 +66,13 @@ public class TestVavr {
         }
 
     }
+    
+    @Test  
+    public void test1() {
+
+        Tuple.of("1");
+          
+    }
+    
 
 }

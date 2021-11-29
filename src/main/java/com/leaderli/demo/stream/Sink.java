@@ -5,12 +5,13 @@ import java.util.function.Consumer;
 public abstract class Sink<T> implements Consumer<T> {
 
     public Sink next;
-    public Sink prev;
+
+    public final Sink prev;
 
 
-    Sink(Sink<T> prev) {
+    public Sink(Sink<T> prev) {
+        this.prev = prev;
         if (prev != null) {
-            this.prev = prev;
             prev.next = this;
         }
 

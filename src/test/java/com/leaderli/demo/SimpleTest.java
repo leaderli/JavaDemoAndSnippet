@@ -1,4 +1,4 @@
-package com.leaderli.demo.demo;
+package com.leaderli.demo;
 
 
 import org.junit.Test;

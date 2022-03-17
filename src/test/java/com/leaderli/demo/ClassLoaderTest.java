@@ -4,9 +4,10 @@ import javassist.*;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 
-public class TestClassLoader {
+public class ClassLoaderTest {
 
     @Test
     public void test() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -18,6 +19,14 @@ public class TestClassLoader {
 //        AssistDemo  assistDemo = (AssistDemo) o;
         System.out.println(Arrays.toString(clazz.getDeclaredFields()));
 
+
+    }
+    @Test
+    public void test1() throws Throwable{
+
+        URL resource = ClassLoaderTest.class.getResource("/");
+
+        System.out.println(resource);
 
     }
 }
@@ -39,11 +48,7 @@ class MyClassLoader extends ClassLoader {
             byte[] bytes = cc.toBytecode();
             System.out.println(cc.toClass().newInstance());
             return this.defineClass(name, bytes, 0, bytes.length);
-        } catch (NotFoundException | CannotCompileException | IOException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NotFoundException | CannotCompileException | IOException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return super.findClass(name);

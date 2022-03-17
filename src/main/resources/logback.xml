@@ -1,14 +1,16 @@
 <configuration debug="false">
-
+  <newRule pattern="configuration/appender/hh"
+           actionClass="com.leaderli.demo.log.LogAction"/>
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <!-- encoders are  by default assigned the type
          ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+    <hh>123</hh>
     <encoder>
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
 
-  <root level="error">
+  <root level="debug">
     <appender-ref ref="STDOUT"/>
   </root>
 </configuration>

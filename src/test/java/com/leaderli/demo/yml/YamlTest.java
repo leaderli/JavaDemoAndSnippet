@@ -1,7 +1,7 @@
 package com.leaderli.demo.yml;
 
 import com.leaderli.demo.bean.Lock;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;

@@ -3,9 +3,10 @@ package com.leaderli.demo;
 import io.vavr.Tuple;
 import io.vavr.collection.CharSeq;
 import io.vavr.collection.Seq;
+import io.vavr.control.Option;
 import io.vavr.control.Validation;
-import org.junit.Test;
-
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 public class TestVavr {
     public static class Person {
 
@@ -66,13 +67,24 @@ public class TestVavr {
         }
 
     }
-    
-    @Test  
+
+    @Test
     public void test1() {
 
         Tuple.of("1");
-          
+
     }
-    
+
+    @Test
+    public void test2() {
+
+        String result = Option.of("hello")
+                .map(str -> (String) null)
+                .getOrElse(() -> "world");
+        System.out.println(result);
+        Assertions.assertThat(result).isNull();
+
+    }
+
 
 }

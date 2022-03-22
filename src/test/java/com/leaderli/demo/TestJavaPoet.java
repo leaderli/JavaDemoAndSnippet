@@ -1,7 +1,7 @@
 package com.leaderli.demo;
 
 import com.squareup.javapoet.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;

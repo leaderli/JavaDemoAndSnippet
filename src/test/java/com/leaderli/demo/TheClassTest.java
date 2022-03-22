@@ -1,6 +1,8 @@
 package com.leaderli.demo;
 
-import java.util.ArrayList;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
 public class TheClassTest {
@@ -14,10 +16,15 @@ public class TheClassTest {
         System.out.println(2);
 
     }
-    public static void main(String[] args) {
-        test(new ArrayList<>());
-        test(11);
+
+    @Test
+    public void test() {
+
+        Assertions.assertTrue(Object.class.isAssignableFrom(String.class));
+        Assertions.assertTrue(String.class.isAssignableFrom(CharSequence.class));
+
     }
+
 }
 
 

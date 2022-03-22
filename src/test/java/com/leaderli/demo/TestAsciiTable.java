@@ -1,8 +1,7 @@
 package com.leaderli.demo;
 
 import de.vandermeer.asciitable.AsciiTable;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 public class TestAsciiTable {
     @Test
     public void test() {

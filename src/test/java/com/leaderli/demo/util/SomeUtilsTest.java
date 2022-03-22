@@ -1,8 +1,7 @@
 package com.leaderli.demo.util;
 
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 class SomeUtilsTest {
     @Test
     public void test() {

@@ -6,15 +6,17 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author leaderli
- * @since 2022/3/17 2:10 PM
+ * @since 2022/3/14
  */
 public class LogbackTest {
+   static Logger logger = LoggerFactory.getLogger("STDOUT");
+
 
     @Test
-    public void test() throws Throwable{
+    public void test() {
 
-        Logger logger = LoggerFactory.getLogger("HelloWorld");
-        logger.debug("Hello world.");
-
+        logger.error("error");
+        logger.info("info");
+        logger.debug("debug");
     }
 }

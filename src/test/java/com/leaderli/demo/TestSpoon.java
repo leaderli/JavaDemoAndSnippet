@@ -1,7 +1,7 @@
 package com.leaderli.demo;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import spoon.Launcher;
 import spoon.SpoonAPI;
 import spoon.reflect.CtModel;
@@ -18,9 +18,11 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class TestSpoon {
 
@@ -75,7 +77,7 @@ public class TestSpoon {
         });
         for (CtMethod<?> ctMethod : methods) {
             String simpleName = ctMethod.getParent(CtClass.class).getSimpleName();
-            assertTrue("naming contract violated for " + simpleName, simpleName.startsWith("Test") || simpleName.endsWith("Test"));
+            assertTrue(simpleName.startsWith("Test") || simpleName.endsWith("Test"), "naming contract violated for " + simpleName);
         }
     }
 
@@ -122,7 +124,7 @@ public class TestSpoon {
                 // 	 every field must have a read
                 .filter(field -> !lookUp.contains(field))
                 .collect(Collectors.toList());
-        assertEquals("Some Fields have no read/write", Collections.emptyList(), fields);
+        assertEquals("Some Fields have no read/write", Collections.emptyList(), (Supplier<String>) fields);
 
     }
 

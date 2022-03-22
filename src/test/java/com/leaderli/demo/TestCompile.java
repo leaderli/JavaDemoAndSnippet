@@ -1,6 +1,6 @@
 package com.leaderli.demo;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LogbackTest {
    static Logger logger = LoggerFactory.getLogger("STDOUT");
+    static Logger sensitive = LoggerFactory.getLogger("sensitive");
 
 
     @Test
@@ -18,5 +19,11 @@ public class LogbackTest {
         logger.error("error");
         logger.info("info");
         logger.debug("debug");
+        sensitive.error("error");
+        sensitive.info("info");
+        sensitive.debug("debug");
+        logger.error("debug1234");
+        sensitive.error("debug1234");
+        sensitive.error("debug12");
     }
 }

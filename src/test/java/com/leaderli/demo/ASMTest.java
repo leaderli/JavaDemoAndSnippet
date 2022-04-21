@@ -18,29 +18,12 @@ import static org.objectweb.asm.Opcodes.*;
 public class ASMTest {
 
 
-    public static class ByteClassLoader extends URLClassLoader {
-
-        public ByteClassLoader(URL[] urls, ClassLoader parent) {
-            super(urls, parent);
-        }
-
-        @Override
-        protected Class<?> findClass(final String name) throws ClassNotFoundException {
-            byte[] classBytes = new ASMTest().serializeToBytes(name);
-            if (classBytes != null) {
-                return defineClass(name, classBytes, 0, classBytes.length);
-            }
-            return super.findClass(name);
-        }
-
-    }
-
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 
         ClassLoader classLoader = ASMTest.class.getClassLoader();
         Class<?> fuck = new ByteClassLoader(new URL[]{}, classLoader).findClass("HelloWorld");
 
-        System.out.println(fuck.getName());
+        System.out.println("class:" + fuck.getName());
         for (Method method : fuck.getMethods()) {
             if (method.getName().startsWith("main"))
                 method.invoke(null);
@@ -54,23 +37,20 @@ public class ASMTest {
 
         cw.visit(V1_8, ACC_PUBLIC + ACC_SUPER, outputClazzName, null, "java/lang/Object", null);
         addStandardConstructor();
-        for (int i = 0; i < 10; i++) {
-
-            addMainMethod(i);
-        }
+        addMainMethod();
         cw.visitEnd();
         return cw.toByteArray();
     }
 
-    private void addMainMethod(int id) {
+    private void addMainMethod() {
 
-        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC + ACC_STATIC, "main" + id, "()V", null, null);
+        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC + ACC_STATIC, "main", "()V", null, null);
         mv.visitCode();
         mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-        mv.visitLdcInsn("Hello World! " + id);
+        mv.visitLdcInsn("Hello World! ");
         mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
         mv.visitInsn(RETURN);
-        mv.visitMaxs(3, 3);
+        mv.visitMaxs(2, 0);
         mv.visitEnd();
     }
 
@@ -83,4 +63,21 @@ public class ASMTest {
         mv.visitMaxs(1, 1);
         mv.visitEnd();
     }
+}
+
+class ByteClassLoader extends URLClassLoader {
+
+    public ByteClassLoader(URL[] urls, ClassLoader parent) {
+        super(urls, parent);
+    }
+
+    @Override
+    protected Class<?> findClass(final String name) throws ClassNotFoundException {
+        byte[] classBytes = new ASMTest().serializeToBytes(name);
+        if (classBytes != null) {
+            return defineClass(name, classBytes, 0, classBytes.length);
+        }
+        return super.findClass(name);
+    }
+
 }

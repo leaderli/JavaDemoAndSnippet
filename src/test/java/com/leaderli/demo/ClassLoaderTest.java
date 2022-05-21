@@ -8,6 +8,9 @@ import java.net.URL;
 import java.util.Arrays;
 
 public class ClassLoaderTest {
+    public static void main(String[] args) {
+        System.out.println(child.final_str);
+    }
 
     @Test
     public void test() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -21,8 +24,9 @@ public class ClassLoaderTest {
 
 
     }
+
     @Test
-    public void test1() throws Throwable{
+    public void test1() throws Throwable {
 
         URL resource = ClassLoaderTest.class.getResource("/");
 
@@ -52,5 +56,23 @@ class MyClassLoader extends ClassLoader {
             e.printStackTrace();
         }
         return super.findClass(name);
+    }
+}
+
+
+class Parent {
+
+    public static final String final_str = "hello final parent";
+
+    static {
+        System.out.println("parent static block");
+    }
+}
+
+class child extends Parent {
+
+
+    static {
+        System.out.println("child static block");
     }
 }

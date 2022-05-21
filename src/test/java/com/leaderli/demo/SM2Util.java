@@ -194,15 +194,15 @@ public class SM2Util {
         } catch (Exception e) {
             System.out.println("加解密测试错误");
         }
-        // 签名和验签测试
-        try {
-            System.out.println("签名源数据：" + str);
-            String signStr = sm2.sign(str, prvKey);
-            System.out.println("签名后数据：" + signStr);
-            boolean verify = sm2.verify(str, signStr, pubKey);
-            System.out.println("签名验证结果：" + verify);
-        } catch (Exception e) {
-            System.out.println("签名和验签测试错误");
-        }
+//        // 签名和验签测试
+//        try {
+//            System.out.println("签名源数据：" + str);
+//            String signStr = sm2.sign(str, prvKey);
+//            System.out.println("签名后数据：" + signStr);
+//            boolean verify = sm2.verify(str, signStr, pubKey);
+//            System.out.println("签名验证结果：" + verify);
+//        } catch (Exception e) {
+//            System.out.println("签名和验签测试错误");
+//        }
     }
 }

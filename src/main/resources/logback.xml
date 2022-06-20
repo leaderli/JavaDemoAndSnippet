@@ -2,7 +2,7 @@
 
     <property scope="context" name="sensitive_regex" value="(\\d{3,20})"/>
 
-    <conversionRule conversionWord="sensitive_msg" converterClass="com.leaderli.demo.log.LiMessageConvert">
+    <conversionRule conversionWord="sensitive_msg" converterClass="io.leaderli.demo.log.LiMessageConvert">
 
     </conversionRule>
 

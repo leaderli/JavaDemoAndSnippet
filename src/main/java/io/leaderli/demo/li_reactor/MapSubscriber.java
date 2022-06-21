@@ -3,65 +3,27 @@ package io.leaderli.demo.li_reactor;
 import java.util.function.Function;
 
 /**
- * @author leaderli
- * @since 2022/6/21
+ * 作为中间层节点，其大部分方法都是通用的，唯一需要修改的就是 next 方法的实际逻辑
  */
-final class MapSubscriber<T, R> implements Subscriber<T>, Subscription {
-    private boolean done;
-    private Function<? super T, ? extends R> mapper;
-    private Subscriber<? super R> actual;
 
-    private Subscription array;
 
-    public MapSubscriber(Function<? super T, ? extends R> mapper, Subscriber<? super R> actual) {
+final class MapSubscriber<T, R> extends MiddleSubscriber<T, R> {
+
+    private final Function<? super T, ? extends R> mapper;
+
+    private Subscription prevSubscription;
+
+    public MapSubscriber(Function<? super T, ? extends R> mapper, Subscriber<R> actualSubscriber) {
+        super(actualSubscriber);
         this.mapper = mapper;
-        this.actual = actual;
-    }
-
-    @Override
-    public void onSubscribe(Subscription subscription) {
-        this.array = subscription;
-        actual.onSubscribe(this);
     }
 
     @Override
     public void next(T t) {
 
-        if (done) {
-            return;
-        }
         R apply = mapper.apply(t);
-        this.actual.next(apply);
+        this.actualSubscriber.next(apply);
     }
 
-    @Override
-    public void onError(Throwable t) {
 
-        if (done) {
-            return;
-        }
-        done = true;
-        this.actual.onError(t);
-    }
-
-    @Override
-    public void onComplete() {
-        if (done) {
-            return;
-        }
-        done = true;
-        this.actual.onComplete();
-
-    }
-
-    @Override
-    public void request(long n) {
-        this.array.request(n);
-
-    }
-
-    @Override
-    public void cancel() {
-        this.array.cancel();
-    }
 }

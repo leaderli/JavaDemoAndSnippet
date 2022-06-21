@@ -5,43 +5,40 @@ package io.leaderli.demo.li_reactor;
  * @since 2022/6/21
  */
 class ArraySubscription<T> implements Subscription {
-    private T[] arr;
-    private Subscriber<? super T> actual;
 
-    private int index = 0;
+    private final T[] arr;
+    private final Subscriber<? super T> actualSubscriber;
+
 
     private boolean canceled;
 
-    public ArraySubscription(Subscriber<? super T> actual, T[] array) {
-        this.actual = actual;
-        this.arr = array;
+    public ArraySubscription(Subscriber<? super T> actualSubscriber, T[] arr) {
+        this.actualSubscriber = actualSubscriber;
+        this.arr = arr;
     }
 
     @Override
-    public void request(long n) {
+    public void request() {
         if (canceled) {
             return;
         }
-        if (n < 0) {
-            n = arr.length;
-        }
-        for (int i = 0; i < n && index < arr.length; i++) {
+
+        for (T t : arr) {
 
             try {
 
-                actual.next(arr[index++]);
+                actualSubscriber.next(t);
+                // 通过 onSubscribe 将 Subscription 传递给订阅者，由订阅者来调用 cancel方法从而实现提前结束循环
                 if (canceled) {
                     return;
                 }
             } catch (Throwable throwable) {
-                actual.onError(throwable);
+                actualSubscriber.onError(throwable);
                 return;
             }
         }
 
-        if (index == arr.length) {
-            actual.onComplete();
-        }
+        actualSubscriber.onComplete();
 
     }
 

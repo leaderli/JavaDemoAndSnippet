@@ -1,6 +1,6 @@
 package io.leaderli.demo.li_reactor;
 
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 /**
  * @author leaderli
@@ -8,20 +8,24 @@ import java.util.function.Consumer;
  */
 class ConsumerSubscriber<T> implements Subscriber<T> {
 
-    private final Consumer<? super T> consumer;
+    private final BiConsumer<? super T, Subscription> consumer;
+    private Subscription subscription;
 
-    public ConsumerSubscriber(Consumer<? super T> consumer) {
+    public ConsumerSubscriber(BiConsumer<? super T, Subscription> consumer) {
         this.consumer = consumer;
     }
 
     @Override
+
     public void onSubscribe(Subscription subscription) {
-        subscription.request(-1);
+
+        this.subscription = subscription;
+        subscription.request();
     }
 
     @Override
     public void next(T t) {
-        consumer.accept(t);
+        consumer.accept(t, this.subscription);
     }
 
 

@@ -12,8 +12,12 @@ class FluxTest {
     public void testArray() {
         boolean a = true;
         FluxArray<Integer> flux = Flux.range(10);
-        flux.map(i -> i * i).subscribe(System.out::println);
-
+        flux.map(i -> i * i).subscribe((num, s) -> {
+            System.out.println(num);
+            if (num > 5) {
+                s.cancel();
+            }
+        });
     }
 
 

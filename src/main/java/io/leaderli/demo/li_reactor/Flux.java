@@ -1,10 +1,6 @@
 package io.leaderli.demo.li_reactor;
 
-import io.vavr.collection.Array;
-
-import java.util.Arrays;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface Flux<T> extends Publisher<T> {
@@ -28,8 +24,13 @@ public interface Flux<T> extends Publisher<T> {
         return new FluxMap<>(this, mapper);
     }
 
+    default Flux<T> log() {
 
-    default void subscribe(BiConsumer<? super T,Subscription> consumer) {
+        return new FluxLog<>(this);
+    }
+
+
+    default void subscribe(BiConsumer<? super T, Subscription> consumer) {
         this.subscribe(new ConsumerSubscriber<>(consumer));
     }
 }

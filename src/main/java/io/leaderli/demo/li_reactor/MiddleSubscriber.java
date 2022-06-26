@@ -5,10 +5,10 @@ package io.leaderli.demo.li_reactor;
  * @since 2022/6/22
  */
 public abstract class MiddleSubscriber<T, R> implements Subscriber<T>, Subscription {
-    protected final Subscriber<R> actualSubscriber;
+    protected final Subscriber<? super R> actualSubscriber;
     private Subscription prevSubscription;
 
-    public MiddleSubscriber(Subscriber<R> actualSubscriber) {
+    public MiddleSubscriber(Subscriber<? super R> actualSubscriber) {
         this.actualSubscriber = actualSubscriber;
     }
 

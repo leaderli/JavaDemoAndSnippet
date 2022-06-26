@@ -11,9 +11,8 @@ final class MapSubscriber<T, R> extends MiddleSubscriber<T, R> {
 
     private final Function<? super T, ? extends R> mapper;
 
-    private Subscription prevSubscription;
 
-    public MapSubscriber(Function<? super T, ? extends R> mapper, Subscriber<R> actualSubscriber) {
+    public MapSubscriber(Function<? super T, ? extends R> mapper, Subscriber<? super R> actualSubscriber) {
         super(actualSubscriber);
         this.mapper = mapper;
     }

@@ -10,5 +10,5 @@ public interface Publisher<T> {
      *
      * @see Subscriber#onSubscribe(Subscription)
      */
-    void subscribe(Subscriber<T> subscriber);
+    void subscribe(Subscriber<? super T> subscriber);
 }

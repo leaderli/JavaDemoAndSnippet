@@ -27,7 +27,7 @@ public class JsonObjectTest {
                                 .map(json -> json.get("carnNbr"))
                                 .map(String::valueOf)
                                 .filter(cardNo::equals)
-                                .notPresent()
+                                .absent()
                 )
                 .cast(JsonObject.class)
                 .first().or(JsonObject::new).get();
@@ -40,7 +40,7 @@ public class JsonObjectTest {
                                 .map(json -> json.get("carnNbr"))
                                 .map(String::valueOf)
                                 .filter(cardNo::equals)
-                                .isPresent()
+                                .present()
                 )
                 .cast(JsonObject.class)
                 .first()

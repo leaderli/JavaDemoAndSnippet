@@ -3,6 +3,7 @@ package io.leaderli.demo;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class TestReflect {
 
@@ -13,6 +14,14 @@ public class TestReflect {
         }
     }
 
+
+    class Parent{
+        public int size;
+    }
+
+    class Son extends Parent{
+        public int age;
+    }
     @Test
     public void test() throws Throwable {
 
@@ -27,6 +36,13 @@ public class TestReflect {
         System.out.println(m1);
         System.out.println(m2);
         System.out.println(m1 == m2);
+
+    }
+
+    @Test
+    public void test2() throws Throwable{
+
+        System.out.println(Arrays.toString(Son.class.getFields()));
 
     }
 }

@@ -2,6 +2,7 @@ package io.leaderli.demo;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -101,6 +102,54 @@ public class GenericsTest<K, V> {
         Some<Integer> some1 = some.toSome();
         some1.test(123);
 
+    }
+
+    private class  Ab implements Consumer<String> {
+
+        @Override
+        public void accept(String s) {
+
+        }
+//        public void accept(Object s) {
+//
+//        }
+    }
+
+    @Test
+    void testAnd() {
+
+
+        And<AndGeneric> and = new And<>(new AndGeneric());
+
+        and.and.accept(and.and);
+    }
+
+    public static class AndGeneric implements Runnable, Consumer<AndGeneric> {
+
+        @Override
+        public void run() {
+
+            System.out.println("run");
+        }
+
+
+
+        @Override
+        public void accept(AndGeneric andGeneric) {
+
+            andGeneric.run();
+        }
+    }
+
+    public static class And<T extends Runnable & Consumer<T>> {
+
+
+        private final T and;
+
+
+        public And(T and) {
+            this.and = and;
+        }
     }
 
 }

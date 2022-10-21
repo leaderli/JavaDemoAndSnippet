@@ -1,10 +1,14 @@
 package io.leaderli.demo;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class TestTelnet {
 
@@ -15,7 +19,7 @@ public class TestTelnet {
             BufferedReader in = null;
 
             try {
-                pingSocket = new Socket("192.168.111.129", 22);
+                pingSocket = new Socket("192.168.142.128", 22);
                 out = new PrintWriter(pingSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
             } catch (IOException e) {
@@ -28,5 +32,15 @@ public class TestTelnet {
             out.close();
             in.close();
             pingSocket.close();
+        }
+
+        @Test
+        public void test() throws IOException {
+
+            InetAddress address = InetAddress.getByName("192.168.142.138");
+            boolean reachable = address.isReachable(10000);
+
+            System.out.println("Is host reachable? " + reachable);
+
         }
 }

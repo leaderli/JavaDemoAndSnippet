@@ -1,4 +1,4 @@
-import java.util.function.Supplier;
+import io.leaderli.litool.core.meta.Lino;
 
 /**
  * @author leaderli
@@ -7,10 +7,10 @@ import java.util.function.Supplier;
 public class HelloWorld {
 
     public static void main(String[] args) {
-        System.out.println("HelloWorld");
 
-        Supplier<Void> supplier = ()->{
-            return null;
-        };
+
+        Lino.narrow(Lino.of("123")).get();
+
+        Lino.of("123").get();
     }
 }

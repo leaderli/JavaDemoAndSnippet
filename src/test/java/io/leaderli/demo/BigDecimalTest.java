@@ -12,7 +12,7 @@ public class BigDecimalTest {
         String maxBal = "10000.1";
         BigDecimal bigDecimal = new BigDecimal(maxBal);
         System.out.println("bigDecimal = " + bigDecimal);
-        BigDecimal multiply = bigDecimal.multiply(new BigDecimal(0.01));
+        BigDecimal multiply = bigDecimal.multiply(new BigDecimal("0.01"));
 
         System.out.println("multiply = " + multiply);
         System.out.println("multiply = " + multiply.doubleValue());

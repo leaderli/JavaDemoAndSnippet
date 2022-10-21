@@ -1,16 +1,38 @@
 package io.leaderli.demo;
 
 
-import java.lang.annotation.Annotation;
-import java.util.function.Function;
+import org.junit.jupiter.api.Test;
+import sun.reflect.annotation.AnnotationSupport;
 
-public class AnnotationTest  {
-    public static void main(String[] args) {
+import java.lang.annotation.*;
+import java.util.Arrays;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.PARAMETER, ElementType.TYPE})
+@Repeatable(NotNulls.class)
+@interface NotNull {
+
+    String value();
 
 
-        FunctionalInterface annotation = Function.class.getAnnotation(FunctionalInterface.class);
-        Class<? extends Annotation> annotationType = annotation.annotationType();
-
-    }
 }
 
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.PARAMETER, ElementType.TYPE})
+@interface NotNulls {
+    NotNull[] value();
+}
+
+@NotNull("123")
+@NotNull("456")
+public class AnnotationTest {
+
+    @Test
+    void test() {
+
+
+
+
+    }
+
+}

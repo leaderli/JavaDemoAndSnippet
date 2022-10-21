@@ -1,5 +1,7 @@
 package io.leaderli.demo;
 
+import io.leaderli.litool.core.bit.BitState;
+import io.leaderli.litool.core.bit.BitStr;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -72,6 +74,7 @@ public class BitTest {
             sb.add("\"" + map.getOrDefault(1 << i, "") + "\"");
         }
         System.out.println(StringUtils.join(sb,","));
+        System.out.println(BitStr.of(IResourceDelta.class));
 
     }
 

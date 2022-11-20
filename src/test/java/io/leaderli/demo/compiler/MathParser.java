@@ -15,28 +15,8 @@ import java.util.List;
  */
 public class MathParser {
 
-    public static final String AND = "and";
-    public static final String OR = "or";
-    public static final String left = "(";
-    public static final String right = ")";
-
-    public static final String less = "<";
-    public static final String less_equal = "<=";
-    public static final String equal = "==";
-    public static final String great_equal = ">=";
-    public static final String great = ">";
-
 
     public List<String> tokens = new ArrayList<>();
-    StringBuilder temp = new StringBuilder();
-
-    public void pushToken() {
-
-        if (temp.length() > 0) {
-            tokens.add(temp.toString());
-            temp = new StringBuilder();
-        }
-    }
 
 
     private int index;
@@ -52,6 +32,14 @@ public class MathParser {
         } else {
             next = null;
         }
+    }
+    public void error() {
+        tokens.add(index - 1, "---->");
+        tokens.add(index + 1, "<----");
+        String msg = StringUtils.join(" ", tokens);
+        System.out.println(msg);
+        LiAssertUtil.assertNotRunWithMsg(msg);
+
     }
 
     // T { and T | or T }
@@ -71,12 +59,6 @@ public class MathParser {
 
     }
 
-    public void error() {
-        tokens.add(index - 1, "---->");
-        tokens.add(index + 1, "<----");
-        LiAssertUtil.assertNotRunWithMsg(StringUtils.join(" ", tokens));
-
-    }
 
     // d | ( E )
     public void T() {
@@ -103,7 +85,6 @@ public class MathParser {
         next();
         E();
 
-        LiAssertUtil.assertTrue(index == tokens.size());
     }
 
 
@@ -116,7 +97,7 @@ public class MathParser {
         parser("(", "a", "and", "b", ")", "and", "c");
         parser("a", "and", "(", "b", "or", "c", ")", "and", "(", "d", "or", "e", ")");
         parser("a", "and", "(", "b", "or", "c", ")");
-        Assertions.assertThrows(IllegalStateException.class, () -> parser("(","a", "and", "b", ")",  "d"));
+        Assertions.assertThrows(IllegalStateException.class, () -> parser("(", "a", "and", "b", ")", "d"));
         Assertions.assertThrows(IllegalStateException.class, () -> parser("a", "and", "b", "and", "c", "or", "d", "e"));
 
     }

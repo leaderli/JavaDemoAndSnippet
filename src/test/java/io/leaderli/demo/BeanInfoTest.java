@@ -1,19 +1,30 @@
 package io.leaderli.demo;
 
-import cn.hutool.core.collection.IterableIter;
+import io.leaderli.demo.bean.Person;
 import org.junit.jupiter.api.Test;
 
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
+import java.beans.*;
+import java.lang.reflect.Method;
 
 public class BeanInfoTest {
     @Test
     void test() throws IntrospectionException {
 
-        for (PropertyDescriptor propertyDescriptor : Introspector.getBeanInfo(IterableIter.class).getPropertyDescriptors()) {
-            System.out.println(propertyDescriptor);
+        BeanInfo beanInfo = Introspector.getBeanInfo(Person.class);
+        for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+
+            Method readMethod = propertyDescriptor.getReadMethod();
+            Method writeMethod = propertyDescriptor.getWriteMethod();
+            Class<?> propertyType = propertyDescriptor.getPropertyType();
+            String name = propertyDescriptor.getName();
+
         }
+
+        for (MethodDescriptor methodDescriptor : beanInfo.getMethodDescriptors()) {
+
+            methodDescriptor.getMethod();
+        }
+
 
     }
 }

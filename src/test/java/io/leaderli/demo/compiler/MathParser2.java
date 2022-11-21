@@ -30,6 +30,9 @@ public class MathParser2 {
 
         next();
         E();
+        if(next!=null){
+            error();
+        }
 
     }
 
@@ -96,7 +99,7 @@ public class MathParser2 {
 
     public static void test(String expression) {
         MathParser2 mathParser2 = new MathParser2(expression.split("\\s+"));
-        List<String> expressions = mathParser2.words;
+        String expressions = mathParser2.words.toString();
         try {
 
             mathParser2.check();
@@ -112,6 +115,7 @@ public class MathParser2 {
 
     public static void main(String[] args) {
 
+        test("a )");
         test("a and b");
         test("a and b  or ( c > d )");
         test("a and b  or ( c > ( d ) )");

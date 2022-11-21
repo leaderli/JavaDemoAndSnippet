@@ -33,6 +33,7 @@ public class MathParser {
             next = null;
         }
     }
+
     public void error() {
         tokens.add(index - 1, "---->");
         tokens.add(index + 1, "<----");
@@ -84,13 +85,16 @@ public class MathParser {
         tokens = Lira.of(text).get();
         next();
         E();
+        if (next != null) {
+            error();
+        }
 
     }
 
 
     @Test
     void test1() {
-        parser("a");
+        Assertions.assertThrows(IllegalStateException.class, ()-> parser("a", ")"));
         Assertions.assertThrows(IllegalStateException.class, () -> parser("a", "b"));
 
         parser("a", "and", "b", "and", "c", "or", "d");

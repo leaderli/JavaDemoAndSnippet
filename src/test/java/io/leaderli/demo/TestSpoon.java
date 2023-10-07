@@ -48,6 +48,7 @@ public class TestSpoon {
         SpoonAPI spoon = new Launcher();
         spoon.addInputResource("src/test/java/");
         spoon.buildModel();
+        spoon.prettyprint();
 
         assertEquals(0, spoon.getFactory().Package().getRootPackage().getElements(new AbstractFilter<CtComment>() {
             @Override

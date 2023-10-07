@@ -8,7 +8,6 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.MethodDescriptor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 /**
  * @author leaderli

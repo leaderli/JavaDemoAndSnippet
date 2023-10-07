@@ -6,6 +6,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
@@ -13,29 +14,38 @@ import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.printer.YamlPrinter;
 import com.github.javaparser.utils.SourceRoot;
+import io.leaderli.demo.bean.Person;
+import io.leaderli.litool.core.meta.Lira;
+import io.leaderli.litool.core.util.ConsoleUtil;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class TestJavaParser {
     MethodDeclaration m1;
+    NameExpr parser = null;
+
+    String m1() {
+        parse("fuck");
+        return "123";
+    }
+
+    void parse(String fuck) {
+
+    }
 
     @Test
-    public void test() throws FileNotFoundException {
-
+    public void test2() throws FileNotFoundException {
 
         JavaParser javaParser = new JavaParser();
-        File file = new File("src/main/java/com/leaderli/demo/TestJavaParser.java");
+        File file = new File("src/test/java/io/leaderli/demo/TestJavaParser.java");
         Optional<CompilationUnit> result = javaParser.parse(file).getResult();
 
         if (!result.isPresent()) {
@@ -44,7 +54,73 @@ public class TestJavaParser {
 
         CompilationUnit cu = result.get();
         List<Integer> returns = new ArrayList<>();
+        new VoidVisitorAdapter<Object>() {
+            @Override
+            public void visit(MethodCallExpr n, Object arg) {
 
+                NodeList<Expression> arguments = n.getArguments();
+
+
+                if (!n.getName().toString().equals("parse") || arguments.size() != 1) {
+
+                    return;
+                }
+
+                Expression expression = Lira.of(arguments).first().get();
+                if (expression.isStringLiteralExpr()) {
+                    parser = (NameExpr) n.getChildNodes().get(0);
+                }
+            }
+        }.visit(cu, null);
+        new VoidVisitorAdapter<Object>() {
+            @Override
+            public void visit(VariableDeclarationExpr n, Object arg) {
+
+//                System.out.println(n);
+            }
+
+            @Override
+            public void visit(FieldDeclaration n, Object arg) {
+
+                if (n.getChildNodes().get(0).equals(parser)) {
+                    System.out.println(n);
+                }
+            }
+        }.visit(cu, null);
+
+    }
+
+    @Test
+    public void test() throws FileNotFoundException {
+
+
+        JavaParser javaParser = new JavaParser();
+        File file = new File("src/test/java/io/leaderli/demo/TestJavaParser.java");
+        Optional<CompilationUnit> result = javaParser.parse(file).getResult();
+
+        if (!result.isPresent()) {
+            return;
+        }
+
+        CompilationUnit cu = result.get();
+        List<Integer> returns = new ArrayList<>();
+        new VoidVisitorAdapter<Object>() {
+            @Override
+            public void visit(MethodCallExpr n, Object arg) {
+
+                NodeList<Expression> arguments = n.getArguments();
+
+
+                if (arguments.size() == 1) {
+
+                    Expression expression = Lira.of(arguments).first().get();
+                    if (expression.isStringLiteralExpr()) {
+                        System.out.println(n.getName() + " " + expression);
+                        parser = (NameExpr) n.getChildNodes().get(0);
+                    }
+                }
+            }
+        }.visit(cu, null);
         new VoidVisitorAdapter<Object>() {
             @Override
             public void visit(MethodDeclaration n, Object arg) {
@@ -186,6 +262,42 @@ public class TestJavaParser {
         });
         System.out.println(cu);
         sourceRoot.saveAll();
+    }
+
+    @Test
+    void test4() throws URISyntaxException, IOException {
+        URI uri = Objects.requireNonNull(TestJavaParser.class.getResource("/")).toURI();
+        Path path = Paths.get(uri).getParent().getParent();
+        SourceRoot sourceRoot = new SourceRoot(path);
+        CompilationUnit cu = sourceRoot.parse("src/test/java/io/leaderli/demo/ast", "PersonService.java");
+        FileWriter fileWriter = new FileWriter("ast.yml");
+        YamlPrinter printer = new YamlPrinter(true);
+//        DotPrinter printer = new DotPrinter(true);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print(printer.output(cu));
+        printWriter.flush();
+
+    }
+
+    @Test
+    void test5() throws URISyntaxException {
+
+        URI uri = Objects.requireNonNull(TestJavaParser.class.getResource("/")).toURI();
+        System.out.println(Paths.get(uri));
+        Path path = Paths.get(uri).getParent().getParent();
+        SourceRoot sourceRoot = new SourceRoot(path);
+        CompilationUnit cu = sourceRoot.parse("src/test/java/io/leaderli/demo/ast", "PersonService.java");
+
+        for (VariableDeclarator variableDeclarator : cu.findAll(VariableDeclarator.class)) {
+
+            ConsoleUtil.print(variableDeclarator, variableDeclarator.getType());
+        }
+        String name = Person.class.getName();
+        System.out.println(cu.findAll(ImportDeclaration.class, im -> {
+            String importName = im.getNameAsString();
+            System.out.println(name + " " + importName);
+            return importName.equals(name) || im.isAsterisk() && name.startsWith(importName);
+        }));
     }
 }
 

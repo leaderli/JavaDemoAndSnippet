@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class StreamDemo {
 
 
@@ -24,6 +25,7 @@ public class StreamDemo {
 
     }
 
+    @SuppressWarnings("unchecked")
     private static class Head<T> extends Sink<T> {
 
         Head(Sink<T> prev) {
@@ -37,9 +39,10 @@ public class StreamDemo {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static class Filter<T> extends Sink<T> {
 
-        private Predicate<T> predicate;
+        private final Predicate<T> predicate;
 
         Filter(Sink<T> prev, Predicate<T> predicate) {
             super(prev);
@@ -55,9 +58,10 @@ public class StreamDemo {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static class Map<T, R> extends Sink<T> {
 
-        private Function<T, R> mapper;
+        private final Function<T, R> mapper;
 
 
         Map(Sink<T> prev, Function<T, R> mapper) {
@@ -94,10 +98,9 @@ public class StreamDemo {
         Head<Integer> head = new Head<>(null);
         Filter<Integer> filter = new Filter<>(head, i -> i > 2);
         Map<Integer, String> mapper = new Map<>(filter, i -> i + "--");
-        Filter<String> filter2 = new Filter(mapper, i -> ((String)i).startsWith("3"));
-        End<Integer> end = new End(filter2);
+        Filter filter2 = new Filter(mapper, i -> ((String)i).startsWith("3"));
 
-        Sink<Integer> prev = end;
+        Sink<Integer> prev = (End<Integer>) new End(filter2);
         while (prev.prev != null) {
             prev = prev.prev;
         }

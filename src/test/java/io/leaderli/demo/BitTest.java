@@ -1,6 +1,5 @@
 package io.leaderli.demo;
 
-import io.leaderli.litool.core.bit.BitState;
 import io.leaderli.litool.core.bit.BitStr;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;

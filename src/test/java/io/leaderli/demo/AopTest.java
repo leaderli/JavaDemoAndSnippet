@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 public class AopTest {
 
 
+    @SuppressWarnings("SuspiciousInvocationHandlerImplementation")
     static <T> T plugin(Class<T> _interface, Object... args) {
 
         if (_interface.isInterface()) {

@@ -1,6 +1,5 @@
 package io.leaderli.demo;
 
-import io.leaderli.litool.core.meta.LiBox;
 import io.leaderli.litool.core.type.ClassUtil;
 import io.leaderli.litool.core.util.ConsoleUtil;
 import org.junit.Test;
@@ -18,7 +17,8 @@ public class ClassPathTest {
     public void test1() {
 
 
-        ConsoleUtil.println(ClassUtil.getAppJars());
+        ConsoleUtil.println(ClassUtil.getAllJarFilePaths());
+
     }
     @Test
     public void test() throws IOException, URISyntaxException {

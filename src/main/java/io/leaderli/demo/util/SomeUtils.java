@@ -1,8 +1,7 @@
 package io.leaderli.demo.util;
 
-import org.apache.commons.lang3.RandomUtils;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Random;
 
 public class SomeUtils {
@@ -10,8 +9,7 @@ public class SomeUtils {
     public static void sleep(long millis) {
         try {
             Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ignored) {
         }
     }
 
@@ -22,14 +20,14 @@ public class SomeUtils {
     }
 
     public static void logWithThread(Object msg) {
-        System.out.println("[" + Thread.currentThread().getName() + " " + new Date().getSeconds() + "]" + " " + msg);
+
+        System.out.println("[" + Thread.currentThread().getName() + " " + Calendar.getInstance().get(Calendar.SECOND) + "]" + " " + msg);
     }
 
     public static void join(Thread thread) {
         try {
             thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ignored) {
         }
     }
 

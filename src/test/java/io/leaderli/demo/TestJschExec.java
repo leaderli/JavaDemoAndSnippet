@@ -1,15 +1,13 @@
 package io.leaderli.demo;
 
-import com.jcraft.jsch.Channel;
+import cn.hutool.core.util.ReflectUtil;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import io.leaderli.litool.core.type.ReflectUtil;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PipedInputStream;
-import java.lang.reflect.Field;
 
 
 public class TestJschExec {
@@ -31,24 +29,17 @@ public class TestJschExec {
         session.connect();
 
         ChannelExec exec = (ChannelExec) session.openChannel("exec");
-        exec.setCommand("sleep 1000 && ls aaa");
+        exec.setCommand(" ls aaa");
         exec.connect();
 
 //        exec.setInputStream(System.in);
 //        exec.setOutputStream(System.out);
-        Field connected = Channel.class.getDeclaredField("connected");
-        connected.setAccessible(true);
-        System.out.println(connected.get(exec));
-        System.out.println(ReflectUtil.getFieldValue(exec, "connected").get());
-        System.out.println(exec.isConnected());
-        connected = Channel.class.getDeclaredField("connected");
-        connected.setAccessible(true);
-        System.out.println(connected.get(exec));
+
         PipedInputStream inputStream= (PipedInputStream) exec.getInputStream();
         PipedInputStream errStream = (PipedInputStream) exec.getErrStream();
 
 
-//        System.out.println(ReflectUtil.getFieldValue(exec, "connected").get());
+        System.out.println(ReflectUtil.getFieldValue(exec, "connected"));
         print(inputStream);
 
         print(errStream);

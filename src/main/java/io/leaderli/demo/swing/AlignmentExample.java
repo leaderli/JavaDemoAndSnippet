@@ -2,6 +2,7 @@ package io.leaderli.demo.swing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class AlignmentExample {
     public static void main(String[] args) {
@@ -10,6 +11,11 @@ public class AlignmentExample {
         JLabel label3 = new JLabel("TopCenter", SwingConstants.CENTER);
 
 
+        File file = new File("src/main/resources/smile.gif");
+        System.out.println(file.getAbsoluteFile());
+
+        System.out.println(file.exists());
+        JLabel label0 = new JLabel(new ImageIcon("src/main/resources/smile.gif"));
         label1.setVerticalAlignment(SwingConstants.BOTTOM);
         label2.setVerticalAlignment(SwingConstants.CENTER);
         label3.setVerticalAlignment(SwingConstants.TOP);
@@ -23,6 +29,7 @@ public class AlignmentExample {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel jPanel = new JPanel(new GridLayout(3, 1, 8, 8));
+        jPanel.add(label0);
         jPanel.add(label1);
         jPanel.add(label2);
         jPanel.add(label3);

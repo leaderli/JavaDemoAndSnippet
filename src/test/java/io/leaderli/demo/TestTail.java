@@ -1,9 +1,9 @@
 package io.leaderli.demo;
 
 import com.sun.tools.attach.AttachNotSupportedException;
+import io.leaderli.litool.core.io.Tailer;
+import io.leaderli.litool.core.io.TailerListener;
 import io.leaderli.litool.core.util.ThreadUtil;
-import org.apache.commons.io.input.Tailer;
-import org.apache.commons.io.input.TailerListenerAdapter;
 import org.junit.Test;
 
 import javax.management.MBeanServerConnection;
@@ -25,9 +25,8 @@ public class TestTail {
             // 创建文件监视器
 
             // 创建Tail监听器
-            TailerListenerAdapter listener = new TailerListenerAdapter() {
+            TailerListener listener = new TailerListener() {
 
-                @Override
                 public void fileNotFound() {
                     if (!file.exists()) {
                         try {
@@ -37,12 +36,6 @@ public class TestTail {
                             throw new RuntimeException(e);
                         }
                     }
-                }
-
-                @Override
-                public void handle(String line) {
-
-                    System.out.println(line);
                 }
 
                 @Override

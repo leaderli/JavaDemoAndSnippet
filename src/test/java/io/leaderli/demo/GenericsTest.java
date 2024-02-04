@@ -7,6 +7,27 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class GenericsTest<K, V> {
+
+    @Test
+    void test1() {
+
+        Consumer<String> c1 = s -> {
+        };
+        Consumer<String> c2 = (String s) -> {
+        };
+
+        Consumer<String> c3 =  new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+
+            }
+        };
+        System.out.println(c1.getClass().getGenericInterfaces()[0]);
+        System.out.println(c2.getClass().getGenericInterfaces()[0]);
+        System.out.println(c3.getClass().getGenericInterfaces()[0]);
+
+    }
+
     public static void main(String[] args) {
 
         Bean<CharSequence, CharSequence> bean = new Bean<>();
@@ -104,7 +125,7 @@ public class GenericsTest<K, V> {
 
     }
 
-    private class  Ab implements Consumer<String> {
+    private class Ab implements Consumer<String> {
 
         @Override
         public void accept(String s) {
@@ -131,7 +152,6 @@ public class GenericsTest<K, V> {
 
             System.out.println("run");
         }
-
 
 
         @Override

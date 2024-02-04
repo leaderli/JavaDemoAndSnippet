@@ -5,6 +5,7 @@ import org.apache.commons.text.StringSubstitutor;
 import org.junit.jupiter.api.Test;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -14,6 +15,30 @@ import java.util.function.Function;
  * @since 2022/1/30
  */
 public class StringTest {
+    @Test
+    void test2() {
+
+        String[] arr = {"1", "2", "3"};
+        StringBuilder sb = new StringBuilder("{");
+        for (String s : arr) {
+            sb.append("\"").append(s).append("\",");
+        }
+        sb.replace(sb.length() - 1, sb.length(), "}");
+
+        System.out.println(sb);
+
+        System.out.println(Arrays.toString(arr));
+        String str = "[1, 2, 3]";
+        str = str.replaceAll("\\s", "");
+        System.out.println(str);
+
+    }
+
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("1");
+        sb.replace(sb.length() - 1, sb.length(), "2");
+        System.out.println(sb);
+    }
 
     @Test
     void test1() {

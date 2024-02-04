@@ -18,6 +18,7 @@ import static org.objectweb.asm.Opcodes.*;
 public class ASMTest {
 
 
+
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 
         ClassLoader classLoader = ASMTest.class.getClassLoader();

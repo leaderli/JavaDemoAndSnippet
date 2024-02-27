@@ -1,6 +1,5 @@
 package io.leaderli.demo;
 
-import com.sun.tools.attach.AttachNotSupportedException;
 import io.leaderli.litool.core.io.Tailer;
 import io.leaderli.litool.core.io.TailerListener;
 import io.leaderli.litool.core.util.ThreadUtil;
@@ -54,7 +53,7 @@ public class TestTail {
         }
     }
 
-    public static void main(String[] args) throws IOException, AttachNotSupportedException {
+    public static void main(String[] args) throws IOException {
         RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
         System.out.println(runtimeMXBean.getName());
         String filePath = "file2.txt";

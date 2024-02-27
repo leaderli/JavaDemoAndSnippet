@@ -70,7 +70,7 @@ public class TestMockito {
         }
 
         public static <T> When<T> when(T o) {
-            return new When<T>();
+            return new When<>();
         }
 
         private static class Invocation {

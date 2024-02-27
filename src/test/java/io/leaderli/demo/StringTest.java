@@ -16,7 +16,7 @@ import java.util.function.Function;
  */
 public class StringTest {
     @Test
-    void test2() {
+    public void test2() {
 
         String[] arr = {"1", "2", "3"};
         StringBuilder sb = new StringBuilder("{");
@@ -34,14 +34,10 @@ public class StringTest {
 
     }
 
-    public static void main(String[] args) {
-        StringBuilder sb = new StringBuilder("1");
-        sb.replace(sb.length() - 1, sb.length(), "2");
-        System.out.println(sb);
-    }
+
 
     @Test
-    void test1() {
+    public void test1() {
 
         HashMap<String, Object> valueMap = new HashMap<>();
         valueMap.put("date", new Date());

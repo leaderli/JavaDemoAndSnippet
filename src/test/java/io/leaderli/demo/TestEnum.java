@@ -2,8 +2,21 @@ package io.leaderli.demo;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.EnumMap;
+
 public class TestEnum {
 
+    enum Tag{
+        A1
+    }
+    @Test
+    void test1() {
+//        System.out.println(Tag.valueOf("A2"));
+        EnumMap<Tag, Object> tagObjectEnumMap = new EnumMap<>(Tag.class);
+
+        System.out.println(tagObjectEnumMap.keySet());
+    }
     @Test
     public void test() throws Throwable {
         for (Color enumConstant : Color.class.getEnumConstants()) {

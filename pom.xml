@@ -3,13 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.leaderli</groupId>
-    <artifactId>JavaDemoAndSnippet</artifactId>
+    <groupId>com.leaderli.demo</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0</version>
-    <name>JavaDemoAndSnippet</name>
+    <name>parent</name>
     <packaging>pom</packaging>
     <modules>
         <module>old</module>
+        <module>tomcat</module>
     </modules>
 
     <properties>

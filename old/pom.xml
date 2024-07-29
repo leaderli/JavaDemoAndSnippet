@@ -49,16 +49,6 @@
             <version>1.9.0</version>
         </dependency>
         <dependency>
-            <groupId>io.leaderli.litool</groupId>
-            <artifactId>litool-core</artifactId>
-            <version>${litool.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.leaderli.litool</groupId>
-            <artifactId>litool-test</artifactId>
-            <version>${litool.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>3.17.0</version>
@@ -251,7 +241,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>5.2.1.RELEASE</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

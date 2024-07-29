@@ -23,19 +23,30 @@
         <litool.version>2.3.3</litool.version>
     </properties>
 
+
     <dependencies>
 
         <dependency>
             <groupId>io.leaderli.litool</groupId>
             <artifactId>litool-core</artifactId>
-            <version>${litool.version}</version>
         </dependency>
         <dependency>
             <groupId>io.leaderli.litool</groupId>
             <artifactId>litool-test</artifactId>
-            <version>${litool.version}</version>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.leaderli.litool</groupId>
+                <artifactId>litool-dependency</artifactId>
+                <version>release</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
 

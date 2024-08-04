@@ -33,14 +33,14 @@ public class HttpServer {
 
                 Request request = new Request(input);
                 request.parse();
-                shutdown = request.getUri().equals(SHUTDOWN_COMMAND);
-                if (shutdown) {
-                    return;
-                }
                 Response response = new Response(output);
                 response.setRequest(request);
                 response.sendStaticResource();
                 socket.close();
+                shutdown = request.getUri().equals(SHUTDOWN_COMMAND);
+                if (shutdown) {
+                    return;
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

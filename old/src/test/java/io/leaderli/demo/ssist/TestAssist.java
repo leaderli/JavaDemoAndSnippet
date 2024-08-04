@@ -27,6 +27,8 @@ public class TestAssist {
 
         // Get the target method
         CtMethod ctMethod = ctClass.getDeclaredMethod("m1");
+        System.out.println(ctMethod.getMethodInfo());
+        System.out.println("----------");
 
         // Instrument method calls
         ctMethod.instrument(new ExprEditor() {

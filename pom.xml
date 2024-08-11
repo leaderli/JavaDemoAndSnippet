@@ -11,6 +11,7 @@
     <modules>
         <module>old</module>
         <module>tomcat</module>
+        <module>image</module>
     </modules>
 
     <properties>
@@ -33,6 +34,10 @@
         <dependency>
             <groupId>io.leaderli.litool</groupId>
             <artifactId>litool-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.leaderli.litool</groupId>
+            <artifactId>litool-json</artifactId>
         </dependency>
     </dependencies>
 

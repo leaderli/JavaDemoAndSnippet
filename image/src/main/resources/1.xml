@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<com_sun_media_imageio_plugins_tiff_image_1.0>
+    <TIFFIFD>
+        <TIFFField number="256" name="ImageWidth">
+            <TIFFShorts>
+                <TIFFShort value="500"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="257" name="ImageHeight">
+            <TIFFShorts>
+                <TIFFShort value="500"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="258" name="BitsPerSample">
+            <TIFFShorts>
+                <TIFFShort value="1"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="259" name="Compression">
+            <TIFFShorts>
+                <TIFFShort value="3"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="262" name="PhotometricInterpretation">
+            <TIFFShorts>
+                <TIFFShort value="1"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="273" name="StripOffsets">
+            <TIFFLongs>
+                <TIFFLong value="8"/>
+            </TIFFLongs>
+        </TIFFField>
+        <TIFFField number="274" name="Orientation">
+            <TIFFShorts>
+                <TIFFShort value="1"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="277" name="SamplesPerPixel">
+            <TIFFShorts>
+                <TIFFShort value="1"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="278" name="RowsPerStrip">
+            <TIFFShorts>
+                <TIFFShort value="500"/>
+            </TIFFShorts>
+        </TIFFField>
+        <TIFFField number="279" name="StripByteCounts">
+            <TIFFLongs>
+                <TIFFLong value="1005"/>
+            </TIFFLongs>
+        </TIFFField>
+        <TIFFField number="292">
+            <TIFFLongs>
+                <TIFFLong value="1"/>
+            </TIFFLongs>
+        </TIFFField>
+        <TIFFField number="305" name="Software">
+            <TIFFAsciis>
+                <TIFFAscii value="TwelveMonkeys ImageIO TIFF writer 3.10.1"/>
+            </TIFFAsciis>
+        </TIFFField>
+    </TIFFIFD>
+</com_sun_media_imageio_plugins_tiff_image_1.0>

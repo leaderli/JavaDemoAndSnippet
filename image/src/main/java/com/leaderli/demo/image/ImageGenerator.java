@@ -2,28 +2,21 @@ package com.leaderli.demo.image;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.media.imageio.plugins.tiff.TIFFField;
-import com.sun.media.imageio.plugins.tiff.TIFFTag;
-import com.sun.media.imageio.plugins.tiff.TIFFTagSet;
-import com.sun.media.imageioimpl.plugins.tiff.TIFFImageMetadata;
-import com.sun.media.imageioimpl.plugins.tiff.TIFFImageReader;
-import com.sun.media.imageioimpl.plugins.tiff.TIFFImageWriter;
+import com.twelvemonkeys.imageio.plugins.tiff.TIFFImageMetadata;
+import com.twelvemonkeys.imageio.plugins.tiff.TIFFImageWriter;
 import org.w3c.dom.Node;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.ImageWriteParam;
-import javax.imageio.metadata.IIOMetadata;
-import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
-import java.awt.image.DataBuffer;
 import java.awt.image.SampleModel;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ImageGenerator {
     public static final Gson GSON = new GsonBuilder()
@@ -31,7 +24,7 @@ public class ImageGenerator {
             .create();
 
     public static void main(String[] args) throws IOException {
-        read();
+        XMLPrinter.read();
         int width = 500;
         int height = 500;
 
@@ -49,21 +42,16 @@ public class ImageGenerator {
         graphics.drawString("hello",10,10);
         graphics.dispose();
 
-        // Create a TIFF image writer
-//        ImageWriter writer = new TIFFImageWriter(new TIFFImageWriterSpi());
-
         File output = new File("generated_image.tiff");
         System.out.println(image);
-//            System.out.println(ImageIO.write(image, "TIFF", output));
         TIFFImageWriter writer = (TIFFImageWriter) ImageIO.getImageWritersByFormatName("TIFF").next();
         ImageWriteParam writeParam = writer.getDefaultWriteParam();
-//        writeParam.setDestinationType(new ImageTranscoderSpi());
         writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
         writeParam.setCompressionType("CCITT T.4");
 //        writeParam.setDestinationType(image.getType());
 //        writeParam.setDestinationType(ImageTypeSpecifier.createFromBufferedImageType(image.getType()));
-        TIFFImageMetadata metadata = (TIFFImageMetadata) writer.getDefaultImageMetadata(ImageTypeSpecifier.createFromBufferedImageType(image.getType()), writeParam);
-        metadata.getRootIFD().addTIFFField(new TIFFField(new TIFFTag("BitsPerSample", 258, DataBuffer.TYPE_INT, new TIFFTagSet(new ArrayList())), 1));
+        TIFFImageMetadata metadata = writer.getDefaultImageMetadata(ImageTypeSpecifier.createFromBufferedImageType(image.getType()), writeParam);
+//        metadata.getRootIFD().addTIFFField(new TIFFField(new TIFFTag("BitsPerSample", 258, DataBuffer.TYPE_INT, new TIFFTagSet(new ArrayList())), 1));
         String nativeMetadataFormatName = "com_sun_media_imageio_plugins_tiff_image_1.0";
         Node root = metadata.getAsTree(nativeMetadataFormatName);
 
@@ -87,32 +75,16 @@ public class ImageGenerator {
         writer.setOutput(ImageIO.createImageOutputStream(output));
         IIOImage iioimage = new IIOImage(newImage, null, metadata);
 //        writer.write(iioimage.getRenderedImage());
-        writer.write(metadata, iioimage, writeParam);
+        System.out.println(Arrays.toString(iioimage.getMetadata().getMetadataFormatNames()));
+        writer.write(null, iioimage, writeParam);
 
-        System.out.println("TIFF Image created successfully!");
 
         String[] nodeNames = metadata.getMetadataFormatNames();
         Node asTree = metadata.getAsTree("com_sun_media_imageio_plugins_tiff_image_1.0");
         XMLPrinter.printNodeAsXML(asTree);
         System.out.println("TIFF Image created successfully!");
-//        System.out.println(GSON.toJson(image.getSampleModel()));
-//        System.out.println(GSON.toJson(newImage.getSampleModel()));
-
-
-        read();
+        XMLPrinter.read();
 
     }
 
-    public static void read() throws IOException {
-        File output = new File("generated_image.tiff");
-        Node asTree;
-        ImageInputStream iis = ImageIO.createImageInputStream(output);
-        TIFFImageReader reader = (TIFFImageReader) ImageIO.getImageReaders(iis).next();
-
-//        TIFFImageReader reader = new TIFFImageReader(new TIFFImageReaderSpi());
-        reader.setInput(iis);
-        IIOMetadata metadata = reader.getImageMetadata(0);
-        asTree = metadata.getAsTree("com_sun_media_imageio_plugins_tiff_image_1.0");
-        XMLPrinter.printNodeAsXML(asTree);
-    }
 }

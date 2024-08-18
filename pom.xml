@@ -12,6 +12,7 @@
         <module>old</module>
         <module>tomcat</module>
         <module>image</module>
+        <module>bytecode</module>
     </modules>
 
     <properties>

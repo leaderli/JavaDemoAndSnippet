@@ -1,4 +1,4 @@
-package io.leaderli.demo.bean;
+package com.leaderli.demo.bytecode;
 
 /**
  * @author leaderli

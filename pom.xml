@@ -13,6 +13,7 @@
         <module>tomcat</module>
         <module>image</module>
         <module>bytecode</module>
+        <module>kafka</module>
     </modules>
 
     <properties>
@@ -27,17 +28,22 @@
 
 
     <dependencies>
-
         <dependency>
-            <groupId>io.leaderli.litool</groupId>
-            <artifactId>litool-core</artifactId>
+            <groupId>io.github.leaderli</groupId>
+            <artifactId>RuleTree</artifactId>
+            <version>1.1</version>
         </dependency>
         <dependency>
-            <groupId>io.leaderli.litool</groupId>
+            <groupId>io.github.leaderli.litool</groupId>
+            <artifactId>litool-core</artifactId>
+            <version>2.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.leaderli.litool</groupId>
             <artifactId>litool-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.leaderli.litool</groupId>
+            <groupId>io.github.leaderli.litool</groupId>
             <artifactId>litool-json</artifactId>
         </dependency>
     </dependencies>
@@ -45,7 +51,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.leaderli.litool</groupId>
+                <groupId>io.github.leaderli.litool</groupId>
                 <artifactId>litool-dependency</artifactId>
                 <version>release</version>
                 <type>pom</type>
